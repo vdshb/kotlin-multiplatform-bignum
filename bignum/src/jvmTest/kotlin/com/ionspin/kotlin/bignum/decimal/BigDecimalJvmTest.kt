@@ -78,6 +78,52 @@ class BigDecimalJvmTest {
     }
 
     @Test
+    fun testConversion() {
+        assertTrue {
+            val bigDecimal = BigDecimal.fromLongWithExponent(123L, 5)
+            val javaBigDecimal = java.math.BigDecimal.valueOf(123, -3)
+            javaBigDecimal.toKotlinBigDecimal().compareTo(bigDecimal) == 0
+        }
+
+        assertTrue {
+            val bigDecimal = BigDecimal.fromLongWithExponent(123L, 4)
+            val javaBigDecimal = java.math.BigDecimal.valueOf(123, -2)
+            javaBigDecimal.toKotlinBigDecimal().compareTo(bigDecimal) == 0
+        }
+
+        assertTrue {
+            val bigDecimal = BigDecimal.fromLongWithExponent(71, -2)
+            val javaBigDecimal = java.math.BigDecimal.valueOf(71, 3)
+            javaBigDecimal.toKotlinBigDecimal().compareTo(bigDecimal) == 0
+        }
+
+        assertTrue {
+            val bigDecimal = BigDecimal.fromLongWithExponent(125L, -7)
+            val javaBigDecimal = java.math.BigDecimal.valueOf(125, 9)
+            val compar = javaBigDecimal.toKotlinBigDecimal()
+            javaBigDecimal.toKotlinBigDecimal().compareTo(bigDecimal) == 0
+        }
+
+        assertTrue {
+            val bigDecimal = BigDecimal.fromLongWithExponent(71, 15)
+            val javaBigDecimal = java.math.BigDecimal.valueOf(71, -14)
+            javaBigDecimal.toKotlinBigDecimal().compareTo(bigDecimal) == 0
+        }
+
+        assertTrue {
+            val bigDecimal = BigDecimal.ZERO
+            val javaBigDecimal = java.math.BigDecimal.ZERO
+            javaBigDecimal.toKotlinBigDecimal().compareTo(bigDecimal) == 0
+        }
+
+        assertTrue {
+            val bigDecimal = BigDecimal.ONE
+            val javaBigDecimal = java.math.BigDecimal.ONE
+            javaBigDecimal.toKotlinBigDecimal().compareTo(bigDecimal) == 0
+        }
+    }
+
+    @Test
     fun testALotOfCreations() {
         val jobList: MutableList<Job> = mutableListOf()
 

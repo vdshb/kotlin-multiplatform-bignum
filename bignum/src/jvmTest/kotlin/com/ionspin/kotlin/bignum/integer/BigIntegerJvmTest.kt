@@ -19,6 +19,7 @@ package com.ionspin.kotlin.bignum.integer
 
 import com.ionspin.kotlin.bignum.integer.BigInteger.Companion.ZERO
 import com.ionspin.kotlin.bignum.integer.base63.toJavaBigInteger
+import com.ionspin.kotlin.bignum.integer.base63.toKotlinBigInteger
 import com.ionspin.kotlin.bignum.modular.ModularBigInteger
 import com.ionspin.kotlin.bignum.toProperType
 import kotlin.random.Random
@@ -129,4 +130,45 @@ class BigIntegerJvmTest {
             aPow.residue.toJavaBigInteger().compareTo(javaBigIntPow) == 0
         }
     }
+
+    @Test
+    fun testConversion() {
+        assertTrue {
+            val javaBigInteger = java.math.BigInteger("123456789012345678901234567890123456789012345678901234567890")
+            val kotlinBigInteger = BigInteger.parseString("123456789012345678901234567890123456789012345678901234567890")
+            val converted = javaBigInteger.toKotlinBigInteger()
+            converted == kotlinBigInteger
+        }
+        assertTrue {
+            val javaBigInteger = java.math.BigInteger("-123456789012345678901234567890123456789012345678901234567890")
+            val kotlinBigInteger = BigInteger.parseString("-123456789012345678901234567890123456789012345678901234567890")
+            val converted = javaBigInteger.toKotlinBigInteger()
+            converted == kotlinBigInteger
+        }
+        assertTrue {
+            val javaBigInteger = java.math.BigInteger("-4")
+            val kotlinBigInteger = BigInteger.parseString("-4")
+            val converted = javaBigInteger.toKotlinBigInteger()
+            converted == kotlinBigInteger
+        }
+        assertTrue {
+            val javaBigInteger = java.math.BigInteger("7")
+            val kotlinBigInteger = BigInteger.parseString("7")
+            val converted = javaBigInteger.toKotlinBigInteger()
+            converted == kotlinBigInteger
+        }
+        assertTrue {
+            val javaBigInteger = java.math.BigInteger.ZERO
+            val kotlinBigInteger = BigInteger.ZERO
+            val converted = javaBigInteger.toKotlinBigInteger()
+            converted == kotlinBigInteger
+        }
+        assertTrue {
+            val javaBigInteger = java.math.BigInteger.ONE
+            val kotlinBigInteger = BigInteger.ONE
+            val converted = javaBigInteger.toKotlinBigInteger()
+            converted == kotlinBigInteger
+        }
+    }
+
 }

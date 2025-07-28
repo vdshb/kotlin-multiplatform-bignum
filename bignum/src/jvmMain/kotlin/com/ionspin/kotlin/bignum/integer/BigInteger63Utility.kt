@@ -38,3 +38,7 @@ fun com.ionspin.kotlin.bignum.integer.BigInteger.toJavaBigInteger(): BigInteger 
 internal fun ULong.toJavaBigInteger(): BigInteger {
     return BigInteger(this.toString(10), 10)
 }
+
+fun BigInteger.toKotlinBigInteger(): com.ionspin.kotlin.bignum.integer.BigInteger {
+    return com.ionspin.kotlin.bignum.integer.BigInteger.parseString(this.toString(10), 10)
+}

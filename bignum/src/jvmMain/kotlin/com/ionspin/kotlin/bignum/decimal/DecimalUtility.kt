@@ -18,6 +18,7 @@
 package com.ionspin.kotlin.bignum.decimal
 
 import com.ionspin.kotlin.bignum.integer.base63.toJavaBigInteger
+import com.ionspin.kotlin.bignum.integer.base63.toKotlinBigInteger
 import kotlin.math.absoluteValue
 
 /**
@@ -45,4 +46,22 @@ fun BigDecimal.toJavaBigDecimal(): java.math.BigDecimal {
         )
     }
 //    return java.math.BigDecimal(this.toStringExpanded())
+}
+
+
+fun java.math.BigDecimal.toKotlinBigDecimal(): BigDecimal {
+    if (this == java.math.BigDecimal.ZERO) {
+        return BigDecimal.ZERO
+    }
+    return if (scale() > 0) {
+        BigDecimal.fromBigIntegerWithExponent(
+            this.unscaledValue().toKotlinBigInteger(),
+            (this.precision() - this.scale() - 1).toLong()
+        )
+    } else {
+        BigDecimal.fromBigIntegerWithExponent(
+            this.unscaledValue().toKotlinBigInteger(),
+            (this.precision() - this.scale() - 1).toLong()
+        )
+    }
 }
