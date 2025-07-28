@@ -53,15 +53,8 @@ fun java.math.BigDecimal.toKotlinBigDecimal(): BigDecimal {
     if (this == java.math.BigDecimal.ZERO) {
         return BigDecimal.ZERO
     }
-    return if (scale() > 0) {
-        BigDecimal.fromBigIntegerWithExponent(
-            this.unscaledValue().toKotlinBigInteger(),
-            (this.precision() - this.scale() - 1).toLong()
-        )
-    } else {
-        BigDecimal.fromBigIntegerWithExponent(
-            this.unscaledValue().toKotlinBigInteger(),
-            (this.precision() - this.scale() - 1).toLong()
-        )
-    }
+    return BigDecimal.fromBigIntegerWithExponent(
+        this.unscaledValue().toKotlinBigInteger(),
+        (this.precision() - this.scale() - 1).toLong()
+    )
 }
